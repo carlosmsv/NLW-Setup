@@ -125,7 +125,16 @@ export async function appRoutes(app: FastifyInstance){
     // This query is more complicated than the others. More conditions, more relationships, so it will be written in RAW SQL
     // PRISMA ORM: RAW SQL => SQLite
     const summary = await prisma.$queryRaw`
-      SELECT * FROM days
+      SELECT 
+        D.id, 
+        D.date,
+        (
+          SELECT 
+            cast(count(*) as float) 
+          FROM day_habits DH
+          WHERE DH.day_id = D.id
+        ) as completed
+      FROM days D
     `
 
     return summary
