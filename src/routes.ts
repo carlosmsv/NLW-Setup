@@ -120,4 +120,14 @@ export async function appRoutes(app: FastifyInstance){
       })
     }
   })
+
+  app.get('/summary', async () => {
+    // This query is more complicated than the others. More conditions, more relationships, so it will be written in RAW SQL
+    // PRISMA ORM: RAW SQL => SQLite
+    const summary = await prisma.$queryRaw`
+      SELECT * FROM days
+    `
+
+    return summary
+  })
 }
