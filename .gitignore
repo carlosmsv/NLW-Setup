@@ -41,4 +41,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/src/notifications-routes.ts
+src/notifications-routes.ts
